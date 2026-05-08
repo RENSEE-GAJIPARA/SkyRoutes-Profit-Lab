@@ -16,9 +16,6 @@ The deliverable is a complete SQL analysis **+** a visual Excel/Power BI dashboa
 
 ---
 
-
----
-
 ## 📋 Table of Contents
 
 - [Project Overview](#-project-overview)
