@@ -1,22 +1,6 @@
 # ✈️ SkyRoutes Profit Lab
 ### Identifying Profitable Airline Routes — Business-Oriented Data Analysis
 
-> **Exam:** Practical Exam | Set D — Red & White Skill Education  
-> **Type:** Business-Oriented Data Analysis (SQL + Excel/Power BI)  
-> **Duration:** 3 Hours
-
----
-
-## 📋 Table of Contents
-
-- [Project Overview](#-project-overview)
-- [Dataset Schema](#-dataset-schema)
-- [Project Structure](#-project-structure)
-- [Step-by-Step Setup Guide](#-step-by-step-setup-guide)
-- [Part 1 — SQL Analysis](#-part-1--sql-analysis)
-- [Part 2 — Excel Dashboard](#-part-2--excel-dashboard)
-- [Key Insights](#-key-insights)
-- [Final Submission Checklist](#-final-submission-checklist)
 
 ---
 
@@ -31,6 +15,22 @@ You are hired as a data analyst for **SkyRoutes Airlines**, which operates acros
 The deliverable is a complete SQL analysis **+** a visual Excel/Power BI dashboard.
 
 ---
+
+
+---
+
+## 📋 Table of Contents
+
+- [Project Overview](#-project-overview)
+- [Dataset Schema](#-dataset-schema)
+- [Project Structure](#-project-structure)
+- [Step-by-Step Setup Guide](#-step-by-step-setup-guide)
+- [Part 1 — SQL Analysis](#-part-1--sql-analysis)
+- [Part 2 — Excel Dashboard](#-part-2--excel-dashboard)
+- [Key Insights](#-key-insights)
+- [Final Submission Checklist](#-final-submission-checklist)
+
+
 
 ## 🗂️ Dataset Schema
 
@@ -97,20 +97,20 @@ python generate_dataset.py
 ### Step 2 — Load Data into SQLite
 
 1. Open **DB Browser for SQLite**
-2. Click **"New Database"** → name it `skyroutes.db`
+2. Click **"New Database"** → name it `SkyRoutesAnalysis.db`
 3. Go to **Execute SQL** tab
 4. Run the `CREATE TABLE` block from `SkyRoutesAnalysis.sql`
 5. Import the CSV:
    - Go to **File → Import → Table from CSV**
    - Select `AirlineRoutesData.csv`
-   - Table name: `airline_routes`
+   - Table name: `airlineroutesdata`
    - Check "First row contains column names" ✅
 6. Click **OK** → data is loaded
 
 > **MySQL alternative:**
 > ```sql
 > LOAD DATA INFILE '/path/AirlineRoutesData.csv'
-> INTO TABLE airline_routes
+> INTO TABLE airlineroutesdata
 > FIELDS TERMINATED BY ','
 > LINES TERMINATED BY '\n'
 > IGNORE 1 ROWS;
@@ -151,7 +151,7 @@ Open `SkyRoutesAnalysis.sql` in your SQL client and execute **each query block**
 1. Click any cell in a data table
 2. Go to **Insert → Slicer**
 3. Select: `AircraftType`, `RouteCode`
-4. For month filter: add a **Timeline** slicer on `FlightDate`
+4. For month filter: add a slicer on `FlightDate`
 
 ---
 
@@ -186,7 +186,7 @@ SELECT RouteCode,
        ROUND(AVG(Revenue), 2)                     AS AvgRevenue,
        ROUND(AVG(OperationalCost), 2)              AS AvgCost,
        ROUND(AVG(Revenue - OperationalCost), 2)    AS AvgProfit
-FROM airline_routes
+FROM airlineroutesdata
 GROUP BY RouteCode
 ORDER BY AvgProfit DESC;
 ```
@@ -196,7 +196,7 @@ ORDER BY AvgProfit DESC;
 SELECT RouteCode,
        ROUND(AVG(Revenue) / AVG(FlightDurationMins), 2) AS RevenuePerMin,
        RANK() OVER (ORDER BY AVG(Revenue)/AVG(FlightDurationMins) DESC) AS Rank
-FROM airline_routes
+FROM airlineroutesdata
 GROUP BY RouteCode;
 ```
 
@@ -214,7 +214,7 @@ The dashboard (`RouteProfitDashboard.xlsx`) includes:
 | Cost vs Revenue | Stacked Column | Q2 results |
 | Dom vs Intl | Comparison Bar | Q6 results |
 
-**Slicers configured for:** `AircraftType` · `Flight Month` · `RouteCode`
+**Slicers configured for:**  `Flight Month` · `RouteCode`
 
 ---
 
