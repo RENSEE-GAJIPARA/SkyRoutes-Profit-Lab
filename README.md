@@ -1,55 +1,14 @@
-# ✈️ SkyRoutes Profit Lab
-### Identifying Profitable Airline Routes — Business-Oriented Data Analysis
+# ✈️ SkyRoutes Profit Lab — Route Profitability Dashboard
 
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Excel](https://img.shields.io/badge/Microsoft_Excel-217346?style=for-the-badge&logo=microsoft-excel&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen?style=for-the-badge)
+![Records](https://img.shields.io/badge/Records-5%2C000_Flights-blue?style=for-the-badge&logo=databricks&logoColor=white)
+![Routes](https://img.shields.io/badge/Routes-20_Unique-orange?style=for-the-badge&logo=flightradar24&logoColor=white)
+![Year](https://img.shields.io/badge/Period-2023-purple?style=for-the-badge&logo=googlecalendar&logoColor=white)
 
----
+> 📊 **A complete SQL + Excel analytics project analysing 5,000 airline flight records to uncover route profitability, occupancy trends, and operational efficiency.**
 
-## 🎯 Project Overview
-
-You are hired as a data analyst for **SkyRoutes Airlines**, which operates across various international and domestic routes. Your task is to **analyze the profitability** of routes based on:
-
-- 🧳 Passenger Volume
-- 💰 Cost & Revenue
-- 📊 Operational Metrics
-
-The deliverable is a complete SQL analysis **+** a visual Excel/Power BI dashboard.
-
----
-
-## 📋 Table of Contents
-
-- [Project Overview](#-project-overview)
-- [Dataset Schema](#-dataset-schema)
-- [Project Structure](#-project-structure)
-- [Step-by-Step Setup Guide](#-step-by-step-setup-guide)
-- [Part 1 — SQL Analysis](#-part-1--sql-analysis)
-- [Part 2 — Excel Dashboard](#-part-2--excel-dashboard)
-- [Key Insights](#-key-insights)
-- [Final Submission Checklist](#-final-submission-checklist)
-
-
-
-## 🗂️ Dataset Schema
-
-**File:** `AirlineRoutesData.csv` — 5,000 flight records across 20 routes
-
-| Column Name         | Type    | Description                              |
-|---------------------|---------|------------------------------------------|
-| `FlightID`          | Integer | Unique identifier for each flight        |
-| `RouteCode`         | Text    | Route code (e.g., BOM-DEL)               |
-| `Origin`            | Text    | Departure airport (IATA code)            |
-| `Destination`       | Text    | Arrival airport (IATA code)              |
-| `FlightDate`        | Date    | Date of the flight (YYYY-MM-DD)          |
-| `FlightDurationMins`| Integer | Total flight duration in minutes         |
-| `AircraftType`      | Text    | Type of aircraft used                    |
-| `SeatsAvailable`    | Integer | Total seats offered on the flight        |
-| `SeatsSold`         | Integer | Number of tickets sold                   |
-| `Revenue`           | Float   | Total revenue from ticket sales (₹)      |
-| `OperationalCost`   | Float   | Cost to operate the flight (₹)           |
-
-**Routes covered:** 10 Domestic + 10 International  
-**Date range:** Jan 2023 – Dec 2023  
-**Aircraft types:** Boeing 737, Airbus A320, Boeing 777, Airbus A380, ATR 72
 
 ---
 
@@ -58,193 +17,157 @@ The deliverable is a complete SQL analysis **+** a visual Excel/Power BI dashboa
 ```
 SkyRoutesProfitLab/
 │
-├── AirlineRoutesData.csv         # Generated dataset (5,000 records)
-├── SkyRoutesAnalysis.sql         # All 7 SQL queries + bonus query
-├── RouteProfitDashboard.xlsx     # Excel dashboard with charts
-├── RouteInsights.txt             # 5–6 line findings summary
-├── generate_dataset.py           # Python script to regenerate CSV
-└── README.md                     # This file
+├── 📄 AirlineRoutesData.csv          # Raw dataset — 5,000 flight records
+├── 🗄️ SkyRoutesAnalysis.sql          # MySQL queries for all analysis
+├── 📊 RouteProfitDashboard.xlsx       # Excel dashboard with charts & pivot tables
+├── 📋 RouteInsights.txt              # Written insights & business recommendations
+└── 📖 README.md                      # Project documentation (this file)
 ```
 
 ---
 
-## 🚀 Step-by-Step Setup Guide
+## 🗃️ Dataset Overview
 
-### Prerequisites
+| Field | Description |
+|---|---|
+| `FlightID` | Unique identifier for each flight |
+| `RouteCode` | Origin–Destination code (e.g., BOM-DEL) |
+| `Origin` | Departure airport code |
+| `Destination` | Arrival airport code |
+| `FlightDate` | Date of flight (DD-MM-YYYY) |
+| `FlightDurationMins` | Total flight duration in minutes |
+| `AircraftType` | Aircraft model used |
+| `SeatsAvailable` | Total seats on the flight |
+| `SeatsSold` | Number of seats sold |
+| `Revenue` | Total revenue generated (₹) |
+| `OperationalCost` | Total operating cost (₹) |
 
-| Tool | Purpose | Download |
-|------|---------|----------|
-| Python 3.x | Generate dataset | [python.org](https://python.org) |
-| DB Browser for SQLite | Run SQL queries | [sqlitebrowser.org](https://sqlitebrowser.org) |
-| Microsoft Excel 2016+ | Build dashboard | Office Suite |
-| `pandas`, `openpyxl` | Python libraries | `pip install pandas openpyxl` |
-
----
-
-### Step 1 — Generate the Dataset
-
-```bash
-pip install pandas openpyxl
-python generate_dataset.py
-# Output: AirlineRoutesData.csv (5,000 rows)
-```
-
----
-
-### Step 2 — Load Data into SQLite
-
-1. Open **DB Browser for SQLite**
-2. Click **"New Database"** → name it `SkyRoutesAnalysis.db`
-3. Go to **Execute SQL** tab
-4. Run the `CREATE TABLE` block from `SkyRoutesAnalysis.sql`
-5. Import the CSV:
-   - Go to **File → Import → Table from CSV**
-   - Select `AirlineRoutesData.csv`
-   - Table name: `airlineroutesdata`
-   - Check "First row contains column names" ✅
-6. Click **OK** → data is loaded
-
-> **MySQL alternative:**
-> ```sql
-> LOAD DATA INFILE '/path/AirlineRoutesData.csv'
-> INTO TABLE airlineroutesdata
-> FIELDS TERMINATED BY ','
-> LINES TERMINATED BY '\n'
-> IGNORE 1 ROWS;
-> ```
+- **Total Records:** 5,000 flights
+- **Routes Covered:** 20 unique routes
+- **Period:** January 2023 – December 2023
+- **Route Types:** Domestic & International
 
 ---
 
-### Step 3 — Run SQL Queries
+## 🗄️ SQL Analysis — Queries Included
 
-Open `SkyRoutesAnalysis.sql` in your SQL client and execute **each query block** one by one:
+All queries are in `SkyRoutesAnalysis.sql` and run on **MySQL Workbench**.
 
-| Query # | Description |
-|---------|-------------|
-| Q1 | Top 10 most frequent routes |
-| Q2 | Avg revenue, cost & profit per route |
-| Q3 | Underperforming routes (negative avg profit) |
-| Q4 | Seat occupancy % per route |
-| Q5 | Monthly profit trend per route |
-| Q6 | Domestic vs international profitability |
-| Q7 | Routes ranked by revenue per minute of flight |
+| # | Query | Purpose |
+|---|---|---|
+| 1 | Top 10 Most Frequent Routes | Identify busiest routes by flight count |
+| 2 | Avg Revenue, Cost & Profit per Route | Compare financial performance across routes |
+| 3 | Underperforming Routes | Flag routes where avg profit < 0 |
+| 4 | Seat Occupancy % per Route | Measure capacity utilisation |
+| 5 | Monthly Profit Trend | Spot seasonal demand patterns |
+| 6 | Domestic vs International Profitability | Compare route-type economics |
+| 7 | Revenue per Minute of Flight | Rank routes by time-adjusted efficiency |
 
-**Export each result:**
-- In DB Browser: **File → Export → Results to CSV**
-- Save each as `Q1_result.csv`, `Q2_result.csv`, etc.
-
----
-
-### Step 4 — Open the Excel Dashboard
-
-1. Open `RouteProfitDashboard.xlsx`
-2. Navigate to the **DASHBOARD** sheet (first tab)
-3. You will see:
-   - **Bar Chart** — Top 10 most profitable routes
-   - **Line Chart** — Monthly profit trend
-4. Individual query results are in tabs: `Q1_FreqRoutes` through `Q7_RevPerMin`
-
-**To add slicers (filters) in Excel:**
-1. Click any cell in a data table
-2. Go to **Insert → Slicer**
-3. Select: `AircraftType`, `RouteCode`
-4. For month filter: add a slicer on `FlightDate`
-
----
-
-### Step 5 — Power BI Alternative (Optional)
-
-1. Open **Power BI Desktop**
-2. **Home → Get Data → Text/CSV** → load `AirlineRoutesData.csv`
-3. In Power Query Editor, add a calculated column:
-   ```
-   Profit = [Revenue] - [OperationalCost]
-   OccupancyPct = [SeatsSold] / [SeatsAvailable] * 100
-   RouteType = IF([Origin] IN {"BOM","DEL","BLR",...}, "Domestic", "International")
-   ```
-4. Build visuals:
-   - **Clustered Bar** → Top 10 routes by avg profit
-   - **Map** → Origin/Destination plotted by IATA lat-long
-   - **Line Chart** → Monthly profit trend
-   - **Gauge** → Average occupancy %
-   - **Stacked Column** → Cost vs Revenue per route
-5. Add slicers for: `AircraftType`, `FlightDate` (Month), `RouteCode`
-6. Save as `RouteProfitDashboard.pbix`
-
----
-
-## 🔍 Part 1 — SQL Analysis
-
-All 7 queries are in `SkyRoutesAnalysis.sql`. Key highlights:
+### 🔧 How to Run
 
 ```sql
--- Example: Profit per route
-SELECT RouteCode,
-       ROUND(AVG(Revenue), 2)                     AS AvgRevenue,
-       ROUND(AVG(OperationalCost), 2)              AS AvgCost,
-       ROUND(AVG(Revenue - OperationalCost), 2)    AS AvgProfit
-FROM airlineroutesdata
-GROUP BY RouteCode
-ORDER BY AvgProfit DESC;
-```
+-- Step 1: Create & use the database
+CREATE DATABASE SkyRoutesAnalysis;
+USE SkyRoutesAnalysis;
 
-```sql
--- Example: Revenue per minute ranking
-SELECT RouteCode,
-       ROUND(AVG(Revenue) / AVG(FlightDurationMins), 2) AS RevenuePerMin,
-       RANK() OVER (ORDER BY AVG(Revenue)/AVG(FlightDurationMins) DESC) AS Rank
-FROM airlineroutesdata
-GROUP BY RouteCode;
+-- Step 2: Create table and import CSV via MySQL Workbench
+-- (Table Wizard → Import AirlineRoutesData.csv)
+
+-- Step 3: Run individual queries from SkyRoutesAnalysis.sql
 ```
 
 ---
 
-## 📊 Part 2 — Excel Dashboard
+## 📊 Excel Dashboard — RouteProfitDashboard.xlsx
 
-The dashboard (`RouteProfitDashboard.xlsx`) includes:
+The dashboard contains **4 interactive visualisations** built from pivot tables:
 
-| Chart | Type | Data Source |
-|-------|------|-------------|
-| Top 10 Profitable Routes | Clustered Bar | Q2 results |
-| Monthly Profit Trend | Line Chart | Aggregated monthly |
-| Occupancy by Route | Donut/Gauge | Q4 results |
-| Cost vs Revenue | Stacked Column | Q2 results |
-| Dom vs Intl | Comparison Bar | Q6 results |
+| Visual | Type | Description |
+|---|---|---|
+| 📈 Monthly Trend | Line Chart | Total profit by month (Jan–Dec 2023) |
+| 🥧 RouteType vs Profit % | Pie Chart | Domestic vs International profit share |
+| 📊 Avg Revenue, Cost & Profit vs Route | Clustered Bar | Side-by-side comparison for all 20 routes |
+| 🏆 Top 10 Routes | Horizontal Bar | Ranked by total profit |
 
-**Slicers configured for:**  `Flight Month` · `RouteCode`
+**Slicers available:** FlightDate (month filter) · RouteCode (route filter)
+
+---
+
+## 🖥️ Dashboard Preview
+
+![SkyRoutes Profit Lab Dashboard](Dashboard.png)
+
+> *Interactive Excel dashboard with slicers for FlightDate and RouteCode filtering.*
 
 ---
 
 ## 💡 Key Insights
 
-1. **BOM-BKK** is the top-performing route by total profit — high-ticket international demand with manageable costs.
-2. **International routes** average **8.6× higher profit** than domestic routes per flight.
-3. **CCU-DEL** shows the weakest average margin — candidate for schedule reduction or yield management.
-4. **Network occupancy** sits at **71.2%** — healthy but with room to optimize on underperforming legs.
-5. **Boeing 777 / A380** drive international profitability; **ATR 72** is efficient only on short domestic hops.
-6. **Q4 (Oct–Dec)** shows peak profitability — airlines should deploy larger aircraft and plan capacity expansions in advance.
+### 🌐 Overall Network Health
+- **Total Profit (2023):** ₹1,73,82,57,552
+- **Average Seat Occupancy:** 71.2%
+- **Negative-profit routes:** 0 — all routes are operationally viable
+
+### 🏅 Top Performer
+**BOM-BKK** is the single most profitable route by total profit, driven by strong occupancy and a favourable revenue-to-cost ratio.
+
+### ⚠️ Underperformer
+**CCU-DEL** records the lowest average profit margin. Operational costs frequently approach revenue levels, suggesting a need for dynamic pricing or schedule optimisation.
+
+### 🌍 Domestic vs International
+| Metric | Domestic | International |
+|---|---|---|
+| Avg Profit / Flight | ₹72,989 | ₹6,25,853 |
+| Total Flights | 2,516 | 2,484 |
+
+> International routes deliver **757% higher** unit profit, confirming long-haul economics outperform domestic, despite higher costs.
+
+### 📅 Seasonal Trends
+- **Peak months:** October – December (Q4)
+- **Dip period:** Mid-year (May – August)
+- Recommendation: Increase capacity in Q4; run promotional fares in low-demand months
+
+### ✈️ Aircraft Efficiency
+| Aircraft | Best Use |
+|---|---|
+| Boeing 777 | Long-haul international — highest profit contribution |
+| Airbus A380 | Long-haul international — strong load factors |
+| ATR 72 | Short domestic routes — profitable only on low-cost legs |
 
 ---
 
-## ✅ Final Submission Checklist
+## 🛠️ Tools Used
 
-| File | Description | Status |
-|------|-------------|--------|
-| `AirlineRoutesData.csv` | Generated dataset (5,000 records) | ✅ |
-| `SkyRoutesAnalysis.sql` | All 7 SQL queries + bonus | ✅ |
-| `RouteProfitDashboard.xlsx` | Excel visual dashboard | ✅ |
-| `RouteInsights.txt` | 5–6 line findings summary | ✅ |
-| `README.md` | Project documentation | ✅ |
+| Tool | Purpose |
+|---|---|
+| ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql) | Data storage & SQL queries |
+| ![Excel](https://img.shields.io/badge/Microsoft_Excel-Dashboard-green?logo=microsoft-excel) | Pivot tables, charts, slicers |
+| ![CSV](https://img.shields.io/badge/Dataset-5000_rows-orange) | Raw flight data source |
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 How to Reproduce
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python)
-![SQL](https://img.shields.io/badge/SQL-SQLite-lightblue?logo=sqlite)
-![Excel](https://img.shields.io/badge/Excel-2016+-green?logo=microsoftexcel)
-![pandas](https://img.shields.io/badge/pandas-latest-purple?logo=pandas)
+1. **Clone / download** all project files
+2. Open **MySQL Workbench** → run `SkyRoutesAnalysis.sql` to create the database and import the CSV
+3. Execute each query section to generate result sets
+4. Open **RouteProfitDashboard.xlsx** in Excel to interact with the dashboard
+5. Use the **FlightDate** and **RouteCode** slicers to filter views
 
 ---
 
-*Red & White Skill Education — Since 2008 | Shaping Skills for Scaling Higher*
+## 📌 Notes
+
+- The "Underperforming Routes" query returns an **empty set** — no route in this dataset has a negative average profit. This is documented in the SQL file.
+- All monetary values are in **Indian Rupees (₹)**.
+- FlightDate in the raw CSV is stored as `DD-MM-YYYY`; the SQL uses `STR_TO_DATE` for correct parsing.
+
+---
+
+<br>
+
+---
+
+*Made with ❤️ and data · SkyRoutes Profit Lab · 2023*
+
+[![Author](https://img.shields.io/badge/👤_Author-RENSEE_GAJIPARA-1F3864?style=for-the-badge&logoColor=white)](https://github.com/)
